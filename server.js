@@ -6,6 +6,13 @@ var logger = require("morgan");
 var express = require("express");
 var app = express();
 
+//connecting to mongoose and monog
+var mongojs = require("mongojs");
+var db = mongojs("DevanshiDataBase", ["nhlHomework"]);
+mongoose.connect("mongodb://localhost/DevanshiDataBase", {
+  useNewUrlParser: true
+});
+
 //setting up the logger (which helps with the html requests)
 app.use(logger("dev"));
 app.use(
@@ -27,12 +34,15 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 
-//connecting to MongoDB
 var db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", function() {
   console.log("Connected to Mongoose");
 });
+
+//connecting to other files
+var routes = require("./controller/controller.js");
+app.use("/", routes);
 
 //linking to local port
 var port = process.env.PORT || 3000;

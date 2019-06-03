@@ -1,7 +1,5 @@
-//get our mongoose
 var mongoose = require("mongoose");
 
-//getting our schema ready for the article
 var Schema = mongoose.Schema;
 var ArticleSchema = new Schema({
   title: {
