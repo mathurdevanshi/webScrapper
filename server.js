@@ -9,9 +9,17 @@ var app = express();
 //connecting to mongoose and monog
 var mongojs = require("mongojs");
 var db = mongojs("DevanshiDataBase", ["nhlHomework"]);
-mongoose.connect("mongodb://localhost/DevanshiDataBase", {
-  useNewUrlParser: true
-});
+mongoose.connect(
+  "mongodb://heroku_43c00hd8:qqv2umpiq3rau9or2dsl31icl1@ds131737.mlab.com:31737/heroku_43c00hd8",
+  {
+    useNewUrlParser: true
+  }
+);
+
+//connecting to the heroku data base
+const MONGODB_URI =
+  process.env.MONGODB_URI || "mongodb://localhost/DevanshiDataBase";
+mongoose.connect(MONGODB_URI);
 
 //setting up the logger (which helps with the html requests)
 app.use(logger("dev"));
